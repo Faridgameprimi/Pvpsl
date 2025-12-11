@@ -1,0 +1,194 @@
+<!--
+PvP Legends - single-file website
+
+How to use:
+1. Create a GitHub repo (or use an existing one). Put this file as index.html in the repo root (or in the gh-pages branch).
+2. Place your PNG logos and any assets in /assets/ (for example: assets/logo.png, assets/icon-info.png, assets/icon-group.png).
+3. To let the site detect wallpapers automatically, create folder /wallpapers in the repo and a text file at /wallpapers/list.txt containing one filename per line (example: bg1.jpg\nbg2.png). Commit the images and list.txt.
+4. Edit the GITHUB_RAW_BASE variable below and replace OWNER and REPO and BRANCH with your GitHub info. Example:
+   const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/your-username/your-repo/main';
+
+5. Enable GitHub Pages (or host via Vercel) so index.html is served. Changing wallpapers is then as simple as pushing new images to /wallpapers and updating list.txt.
+
+Customization:
+- Replace the images in /assets for custom logos and icon PNGs.
+- Button links are prefilled with the links you provided.
+
+This single file includes simple CSS, responsive layout, custom buttons, and JS that fetches the wallpaper list from your GitHub repo and applies it as the page background.
+--><!doctype html>
+
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PvP Legends — Link Hub</title>
+  <meta name="description" content="PvP Legends link hub — launch, whatsapp channels & groups" />
+  <style>
+    :root{
+      --accent: #f7c948;
+      --glass: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.18);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.8);
+      --radius: 12px;
+      --button-h: 64px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;margin:0}
+    body{
+      background-color:#0b0b12;
+      background-size:cover;
+      background-position:center center;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;align-items:center;justify-content:center;padding:28px;
+    }
+    .wrap{width:100%;max-width:480px}.card{
+  backdrop-filter: blur(6px) saturate(120%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+  border:1px solid var(--glass-border);
+  padding:22px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+.logo-wrap{display:flex;align-items:center;gap:14px;flex-direction:column;text-align:center}
+.logo{width:96px;height:96px;border-radius:999px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.5);border:3px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center}
+.logo img{width:84%;height:84%;object-fit:contain}
+h1{margin:8px 0 0;font-size:20px}
+p.lead{margin:6px 0 12px;color:var(--muted);font-size:14px}
+
+.buttons{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+.btn{
+  display:flex;align-items:center;gap:12px;padding:0 16px;height:var(--button-h);border-radius:12px;border:2px solid rgba(255,255,255,0.12);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));cursor:pointer;text-decoration:none;color:var(--text);font-weight:600;}
+.btn .left{width:44px;height:44px;border-radius:10px;background:var(--glass);display:flex;align-items:center;justify-content:center}
+.btn .title{flex:1;text-align:left}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+
+.small{font-size:13px;color:var(--muted);font-weight:500}
+
+.footer{margin-top:14px;text-align:center;color:var(--muted);font-size:13px}
+
+/* fallback when no wallpaper */
+.bg-fallback{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 10%, rgba(123,92,255,0.12) 0%, transparent 20%), radial-gradient(ellipse at 90% 80%, rgba(0,188,212,0.08) 0%, transparent 20%)}
+
+/* small screens reduce padding */
+@media (max-width:420px){.card{padding:16px}.logo{width:84px;height:84px}}
+
+  </style>
+</head>
+<body>
+  <div class="bg-fallback" aria-hidden></div>  <div class="wrap">
+    <div class="card" id="mainCard">
+      <div class="logo-wrap">
+        <div class="logo" id="logoEl">
+          <!-- Default inline SVG logo. Replace with assets/logo.png in your repo -->
+          <img src="assets/logo.png" alt="PvP Legends Logo" onerror="this.src=defaultLogoDataUrl" />
+        </div>
+        <h1>PvP Legends</h1>
+        <p class="lead">PvP Legends — Server Bedrock PvP RPG Terbaik</p>
+      </div><div class="buttons">
+    <a class="btn" id="launchBtn" href="https://pvp-legends-launch.vercel.app/" target="_blank" rel="noopener">
+      <div class="left"></div>
+      <div class="title">Launch To Minecraft</div>
+      <div class="small">Buka launcher / server page</div>
+    </a>
+
+    <a class="btn" href="https://whatsapp.com/channel/0029VasHfEr3LdQV5WDTJQ0s" target="_blank" rel="noopener">
+      <div class="left"></div>
+      <div class="title">Saluran Whatsapp Info PvP Legend</div>
+      <div class="small">Channel rasmi</div>
+    </a>
+
+    <a class="btn" href="https://www.whatsapp.com/channel/0029VbBdVD67DAX2DLTxWq1s" target="_blank" rel="noopener">
+      <div class="left"></div>
+      <div class="title">Saluran Whatsapp Feedback PvP legend</div>
+      <div class="small">Sumbang idea atau lapor bug</div>
+    </a>
+
+    <a class="btn" href="https://chat.whatsapp.com/COCcYZg3WsKJeOioFHQO9r?mode=hqrt2" target="_blank" rel="noopener">
+      <div class="left"></div>
+      <div class="title">Grup Whatsapp chat PvP legend</div>
+      <div class="small">Sertai perbualan pemain</div>
+    </a>
+
+    <a class="btn" href="https://chat.whatsapp.com/IsAFXEIZ1fM5t7ml3Ith9c?mode=hqrt2" target="_blank" rel="noopener">
+      <div class="left"></div>
+      <div class="title">Grup Whatsapp store pvp legend</div>
+      <div class="small">Pasukan / store</div>
+    </a>
+  </div>
+
+  <div class="footer">Boleh tukar wallpaper dengan memuat naik imej ke folder <code>/wallpapers</code> di repo GitHub anda dan mengemaskini <code>wallpapers/list.txt</code>.</div>
+</div>
+
+  </div><script>
+// === CONFIG - Edit these to match your GitHub repo where wallpapers are stored ===
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/OWNER/REPO/BRANCH';
+const WALLPAPER_LIST_PATH = '/wallpapers/list.txt'; // file containing filenames (one per line)
+const WALLPAPER_FOLDER = '/wallpapers';
+// ==================================================================================
+
+// A tiny default inline SVG dataURL used if assets/logo.png missing
+const defaultLogoDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><rect width="100%" height="100%" rx="8" fill="#0f172a"/><text x="50%" y="54%" font-size="7" fill="#f7c948" text-anchor="middle" font-family="Arial">PvP</text></svg>`);
+
+// Try to fetch the wallpapers list from GitHub raw. If found, pick one at random and set as background.
+async function applyWallpaperFromGithub(){
+  try{
+    const listUrl = GITHUB_RAW_BASE + WALLPAPER_LIST_PATH;
+    const resp = await fetch(listUrl);
+    if(!resp.ok) throw new Error('list not found');
+    const text = await resp.text();
+    const names = text.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(names.length===0) throw new Error('no names');
+    // pick random name
+    const chosen = names[Math.floor(Math.random()*names.length)];
+    const imgUrl = GITHUB_RAW_BASE + WALLPAPER_FOLDER + '/' + encodeURIComponent(chosen);
+    // pre-load
+    const img = new Image();
+    img.onload = () => {
+      document.body.style.backgroundImage = `url('${imgUrl}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundPosition = 'center center';
+    };
+    img.onerror = ()=>console.warn('failed to load wallpaper', imgUrl);
+    img.src = imgUrl;
+  }catch(err){
+    console.info('No wallpapers list found or failed to load — using fallback');
+  }
+}
+
+// Option to allow manual wallpaper selection (if repo has predictable filenames). This example shows detected filenames in a small overlay if present.
+async function showWallpaperPicker(){
+  try{
+    const listUrl = GITHUB_RAW_BASE + WALLPAPER_LIST_PATH;
+    const resp = await fetch(listUrl);
+    if(!resp.ok) return;
+    const text = await resp.text();
+    const names = text.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(names.length===0) return;
+    // create a tiny chooser UI
+    const picker = document.createElement('div');
+    picker.style.position='fixed';picker.style.right='14px';picker.style.bottom='14px';picker.style.background='rgba(0,0,0,0.45)';picker.style.border='1px solid rgba(255,255,255,0.08)';picker.style.padding='8px';picker.style.borderRadius='8px';picker.style.zIndex='9999';picker.style.backdropFilter='blur(4px)';
+    const label=document.createElement('div');label.textContent='Wallpaper';label.style.color='white';label.style.fontSize='12px';label.style.marginBottom='6px';picker.appendChild(label);
+    names.slice(0,6).forEach(n=>{
+      const b=document.createElement('button');b.textContent=n; b.style.display='block';b.style.marginBottom='6px';b.style.width='160px';b.style.fontSize='12px';b.onclick=()=>{
+        const imgUrl = GITHUB_RAW_BASE + WALLPAPER_FOLDER + '/' + encodeURIComponent(n);
+        document.body.style.backgroundImage = `url('${imgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundPosition = 'center center';
+      };
+      picker.appendChild(b);
+    });
+    document.body.appendChild(picker);
+  }catch(e){/* ignore */}
+}
+
+// Initialize
+applyWallpaperFromGithub();
+showWallpaperPicker();
+</script></body>
+</html>
