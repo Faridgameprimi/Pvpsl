@@ -3,237 +3,253 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PvP Legends — Link Hub</title>
-  <meta name="description" content="PvP Legends link hub — launch, whatsapp channels & groups" />
+  <title>PvP Legends — Liquid Glass Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
   <style>
-    :root{
-      --accent: #f7c948;
-      --glass: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.18);
-      --text: #ffffff;
-      --muted: rgba(255,255,255,0.8);
-      --radius: 12px;
-      --button-h: 78px;
-      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
-    html,body{height:100%;margin:0;overflow-x:hidden;}
-    body{
-      background-color:#0b0b12;
-      background-size:cover;
-      background-position:center center;
-      color:var(--text);
-      display:flex;align-items:center;justify-content:center;padding:28px;
+    :root {
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-heavy: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-main: #ffffff;
+      --text-dim: rgba(255, 255, 255, 0.6);
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* --- STYLE NAV & MENU --- */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      margin: 0;
+      background-color: #050508;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* Animasi Teks Mengalir (Ungu ke Putih) */
+    @keyframes flowText {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .animated-text {
+      background: linear-gradient(90deg, #a855f7, #ffffff, #a855f7);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: flowText 3s linear infinite;
+      font-weight: 800;
+    }
+
+    /* --- Navigation --- */
     .top-nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 15px 20px;
+      top: 0; width: 100%;
+      padding: 25px;
       display: flex;
       justify-content: flex-end;
       z-index: 100;
-      box-sizing: border-box;
     }
+
     .menu-btn {
-      background: rgba(0,0,0,0.4);
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
-      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: white;
       cursor: pointer;
       display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 12px;
-      border-radius: 10px;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      transition: 0.4s;
     }
-    .menu-btn span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-    }
+
+    /* --- Sidebar (Liquid Glass) --- */
     .side-menu {
       position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100%;
-      background: #000000;
+      top: 15px; right: -100%;
+      width: 340px;
+      height: calc(100% - 30px);
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
       z-index: 200;
-      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      padding: 40px 25px;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-      display: flex;
-      flex-direction: column;
+      transition: 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding: 50px 30px;
+      border-radius: 40px 0 0 40px;
+      border: 1px solid var(--glass-border);
     }
-    .side-menu.active { right: 0; }
-    .close-btn {
-      align-self: flex-end;
-      font-size: 30px;
-      color: var(--text);
-      cursor: pointer;
-      margin-bottom: 30px;
-    }
-    .side-menu-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 30px;
-      color: var(--text);
-    }
-    .menu-links {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .menu-links a {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .menu-links a:hover { color: var(--accent); }
-    /* --- SELESAI STYLE MENU --- */
 
-    .wrap{width:100%;max-width:520px; margin-top: 50px;}
-    .card{
-      backdrop-filter: blur(6px) saturate(120%);
-      background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
-      border:1px solid var(--glass-border);
-      padding:26px;border-radius:22px;box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    .side-menu.active { right: 0; }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: var(--glass);
+      border-radius: 18px;
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
     }
-    .logo-wrap{display:flex;align-items:center;flex-direction:column;text-align:center;margin-bottom:14px;}
-    .logo{width:180px;height:180px;border-radius:0;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.5);border:3px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;}
-    .logo img{width:100%;height:100%;object-fit:contain;}
-    .status-box{margin:18px 0;padding:16px;border-radius:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);text-align:center;}
-    .status-title{font-size:14px;color:var(--muted);margin-bottom:4px}
-    .status-count{font-size:22px;font-weight:700}
-    .buttons{display:flex;flex-direction:column;gap:14px;margin-top:20px}
-    .btn{display:flex;align-items:center;gap:14px;padding:0 16px;height:var(--button-h);border-radius:16px;border:2px solid rgba(255,255,255,0.12);background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));cursor:pointer;text-decoration:none;color:var(--text);font-weight:600;transition: 0.2s;}
-    .btn .left{width:56px;height:56px;border-radius:14px;background:var(--glass);display:flex;align-items:center;justify-content:center;overflow:hidden;}
-    .btn .left img{width:100%;height:100%;object-fit:cover}
-    .btn .title{flex:1;text-align:left;font-size:15px}
-    .btn .small{font-size:12px;color:var(--muted)}
-    .btn:hover{transform:translateY(-2px)}
-    .footer{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+
+    .menu-item:hover { background: var(--glass-heavy); transform: translateX(-5px); }
+
+    /* --- Main Card --- */
+    .wrap { width: 100%; max-width: 440px; margin-top: 80px; }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(25px) saturate(150%);
+      -webkit-backdrop-filter: blur(25px) saturate(150%);
+      border: 1px solid var(--glass-border);
+      padding: 40px 30px;
+      border-radius: 50px;
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    .logo-container {
+      width: 150px; height: 150px;
+      margin: 0 auto 30px;
+    }
+
+    .logo-container img { width: 100%; height: 100%; object-fit: contain; }
+
+    .status-box {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 30px;
+      padding: 25px;
+      margin-bottom: 35px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-count {
+      font-size: 42px;
+      margin: 10px 0;
+    }
+
+    /* --- Launch Button --- */
+    .btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 24px;
+      background: #ffffff;
+      color: #000;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      transition: 0.4s;
+    }
+
+    .btn-launch:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(255,255,255,0.2); }
+
+    .footer { margin-top: 40px; font-size: 10px; letter-spacing: 4px; color: var(--text-dim); }
+
+    .close-btn { text-align: right; font-size: 30px; cursor: pointer; margin-bottom: 30px; }
   </style>
 </head>
 <body>
 
+  <audio id="btnAudio" src="click-sound.wav" preload="auto"></audio>
+
   <header class="top-nav">
     <button class="menu-btn" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+      <i data-lucide="layers" size="18"></i>
+      <span>MENU</span>
     </button>
   </header>
 
   <nav class="side-menu" id="sideMenu">
     <div class="close-btn" onclick="toggleMenu()">&times;</div>
-    <div class="side-menu-title">Menu</div>
+    <div style="font-size: 20px; font-weight: 800; margin-bottom: 30px;">LINKS HUB</div>
     <div class="menu-links">
-      <a href="https://pvpsl-store.vercel.app/">Store</a>
-      </div>
+      <a href="https://pvpsl-store.vercel.app/" class="menu-item"><i data-lucide="shopping-bag"></i> Website Store</a>
+      <a href="https://whatsapp.com/channel/0029VasHfEr3LdQV5WDTJQ0s" class="menu-item"><i data-lucide="rss"></i> Info Channel</a>
+      <a href="https://chat.whatsapp.com/COCcYZg3WsKJeOioFHQO9r" class="menu-item"><i data-lucide="message-circle"></i> Chat Group</a>
+      <a href="https://chat.whatsapp.com/IsAFXEIZ1fM5t7ml3Ith9c" class="menu-item"><i data-lucide="credit-card"></i> Store Group</a>
+      <a href="https://minecraftservers.org/server/684199" class="menu-item"><i data-lucide="check-circle"></i> Vote Server</a>
+      <a href="https://sociabuzz.com/supportpvpsl/tribe" class="menu-item"><i data-lucide="heart"></i> Support Us</a>
+    </div>
   </nav>
 
   <div class="wrap">
-    <div class="card" id="mainCard">
-      <div class="logo-wrap">
-        <div class="logo" id="logoEl">
-          <img src="assets/logo.png" alt="PvP Legends Logo" onerror="this.src=defaultLogoDataUrl" />
-        </div>
+    <div class="card">
+      <div class="logo-container">
+        <img src="assets/logo.png" alt="PvP Legends" id="logoEl" onerror="this.src=defaultLogoDataUrl">
       </div>
 
       <div class="status-box">
-        <div class="status-title">Players Online</div>
-        <div class="status-count" id="playersOnline">Loading...</div>
-        
-        <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);">
-          <div style="font-size: 15px; color: var(--text); font-weight: 600;">IP: pvpsl.xyz</div>
-          <div style="font-size: 15px; color: var(--text); font-weight: 600;">Port: 19165</div>
-          <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">Support java bedrock</div>
-        </div>
+        <div style="font-size: 11px; letter-spacing: 2px; font-weight: 700;">PLAYERS ONLINE</div>
+        <div class="status-count animated-text" id="playersOnline">00</div>
+        <div style="font-size: 14px; font-weight: 600; opacity: 0.8;">pvpsl.xyz : 19165</div>
       </div>
 
-      <div class="buttons">
-        <a class="btn" href="https://pvp-legends-launch.vercel.app/" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-launch.png" alt="icon"></div>
-          <div class="title">Launch To Minecraft</div>
-          <div class="small">pvpsl.xyz:19165</div>
-        </a>
+      <a href="https://pvp-legends-launch.vercel.app/" class="btn-launch">
+        <i data-lucide="play"></i>
+        LAUNCH MINECRAFT
+      </a>
 
-        <a class="btn" href="https://whatsapp.com/channel/0029VasHfEr3LdQV5WDTJQ0s" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-info.png" alt="icon"></div>
-          <div class="title">Whatsapp Info Channel</div>
-          <div class="small">Info update</div>
-        </a>
-
-        <a class="btn" href="https://www.whatsapp.com/channel/0029VbBdVD67DAX2DLTxWq1s" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-feedback.png" alt="icon"></div>
-          <div class="title">Whatsapp Feedback</div>
-          <div class="small">Feedback Pembeli</div>
-        </a>
-
-        <a class="btn" href="https://chat.whatsapp.com/COCcYZg3WsKJeOioFHQO9r?mode=hqrt2" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-chat.png" alt="icon"></div>
-          <div class="title">Whatsapp Chat Group</div>
-          <div class="small">Chat Public pvp legends</div>
-        </a>
-
-        <a class="btn" href="https://chat.whatsapp.com/IsAFXEIZ1fM5t7ml3Ith9c?mode=hqrt2" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-store.png" alt="icon"></div>
-          <div class="title">Whatsapp Store Group</div>
-          <div class="small">Store Rank & Coins</div>
-        </a>
-          
-        <a class="btn" href="https://minecraftservers.org/server/684199" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-vote.png" alt="icon"></div>
-          <div class="title">Vote Server Pvp legends</div>
-          <div class="small">Vote Server</div>
-        </a>
-          
-        <a class="btn" href="https://sociabuzz.com/supportpvpsl/tribe" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-vote.png" alt="icon"></div>
-          <div class="title">Support</div>
-          <div class="small">Support Pvp legends</div>
-        </a>
-          
-        <a class="btn" href="https://chat.whatsapp.com/HnpgonVGHPiFlBDPbUija8?mode=gi_t" target="_blank" rel="noopener">
-          <div class="left"><img src="assets/btn-vote.png" alt="icon"></div>
-          <div class="title">Content Creator</div>
-          <div class="small">Content Creator Pvp legends</div>
-        </a>
-      </div>
-
-      <div class="footer">Selamat datang ke website pvplegends</div>
+      <div class="footer">PVPLegends &copy; 2024</div>
     </div>
   </div>
 
 <script>
+lucide.createIcons();
+
+// --- Audio System (WAV) ---
+const btnAudio = document.getElementById('btnAudio');
+function playBtnSound() {
+    btnAudio.currentTime = 0; // Reset ke awal agar bisa dipencet cepat
+    btnAudio.play().catch(() => {
+        console.log("Interaksi user diperlukan agar suara muncul.");
+    });
+}
+
+// Pasang suara ke semua link dan tombol secara otomatis
+document.querySelectorAll('a, button').forEach(btn => {
+    btn.addEventListener('click', playBtnSound);
+});
+
 function toggleMenu() {
+  playBtnSound(); // Suara saat buka menu
   document.getElementById('sideMenu').classList.toggle('active');
 }
 
+// --- Server & Wallpaper System ---
 const SERVER_IP = "pvpsl.xyz";
 const SERVER_PORT = 19165;
 const QUERY_URL = `https://api.mcsrvstat.us/bedrock/2/${SERVER_IP}:${SERVER_PORT}`;
 const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Faridgameprimi/Pvpsl/main';
 const WALLPAPER_LIST_PATH = '/wallpapers/list.txt';
 const WALLPAPER_FOLDER = '/wallpapers';
-const defaultLogoDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><rect width="100%" height="100%" rx="8" fill="#0f172a"/><text x="50%" y="54%" font-size="7" fill="#f7c948" text-anchor="middle" font-family="Arial">PvP</text></svg>`);
+const defaultLogoDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24"><rect width="100%" height="100%" rx="8" fill="#111"/><text x="50%" y="54%" font-size="6" fill="white" text-anchor="middle" font-family="Arial">PVP</text></svg>`);
 
 async function fetchPlayers(){
   try{
     const r = await fetch(QUERY_URL);
     const data = await r.json();
+    const el = document.getElementById('playersOnline');
     if(data && data.online){
-      document.getElementById('playersOnline').textContent = (data.players?.online ?? 0) + " / " + (data.players?.max ?? 0);
-    } else { document.getElementById('playersOnline').textContent = "Offline"; }
-  } catch(e){ document.getElementById('playersOnline').textContent = "Offline"; }
+      el.textContent = `${data.players?.online ?? 0} / ${data.players?.max ?? 0}`;
+    } else { el.textContent = "OFFLINE"; }
+  } catch(e){ document.getElementById('playersOnline').textContent = "OFFLINE"; }
 }
-fetchPlayers();
-setInterval(fetchPlayers, 5000);
 
 async function applyWallpaperFromGithub(){
   try{
@@ -245,11 +261,17 @@ async function applyWallpaperFromGithub(){
     if(names.length === 0) return;
     const chosen = names[Math.floor(Math.random()*names.length)];
     const imgUrl = GITHUB_RAW_BASE + WALLPAPER_FOLDER + '/' + chosen;
+    
     const img = new Image();
-    img.onload = ()=>{ document.body.style.backgroundImage = `url('${imgUrl}')`; };
+    img.onload = ()=>{ 
+      document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('${imgUrl}')`; 
+    };
     img.src = imgUrl;
-  }catch{}
+  }catch(e){}
 }
+
+fetchPlayers();
+setInterval(fetchPlayers, 15000);
 applyWallpaperFromGithub();
 </script>
 </body>
