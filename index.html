@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PvP Legends — Liquid Glass Hub</title>
+  <title>FaridSmp</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   
@@ -34,14 +34,13 @@
       overflow-x: hidden;
     }
 
-    /* Animasi Teks Mengalir (Ungu ke Putih) */
+    /* Animasi Teks Mengalir */
     @keyframes flowText {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
     }
 
     .animated-text {
-      background: linear-gradient(90deg, #a855f7, #ffffff, #a855f7);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -75,7 +74,7 @@
       transition: 0.4s;
     }
 
-    /* --- Sidebar (Liquid Glass) --- */
+    /* --- Sidebar --- */
     .side-menu {
       position: fixed;
       top: 15px; right: -100%;
@@ -196,7 +195,7 @@
 
       <div class="status-box">
         <div style="font-size: 11px; letter-spacing: 2px; font-weight: 700;">PLAYERS ONLINE</div>
-        <div class="status-count animated-text" id="playersOnline">00</div>
+        <div class="status-count animated-text" id="playersOnline" style="background: linear-gradient(90deg, #ff0000, #ffffff, #ff0000); -webkit-background-clip: text; background-clip: text;">00</div>
         <div style="font-size: 14px; font-weight: 600; opacity: 0.8;">pvpsl.xyz : 19162</div>
       </div>
 
@@ -205,33 +204,28 @@
         LAUNCH MINECRAFT
       </a>
 
-      <div class="footer">PVPLegends &copy; 2024-2026</div>
+      <div class="footer">FaridSmp &copy; 2024-2026</div>
     </div>
   </div>
 
 <script>
 lucide.createIcons();
 
-// --- Audio System (WAV) ---
 const btnAudio = document.getElementById('btnAudio');
 function playBtnSound() {
-    btnAudio.currentTime = 0; // Reset ke awal agar bisa dipencet cepat
-    btnAudio.play().catch(() => {
-        console.log("Interaksi user diperlukan agar suara muncul.");
-    });
+    btnAudio.currentTime = 0;
+    btnAudio.play().catch(() => {});
 }
 
-// Pasang suara ke semua link dan tombol secara otomatis
 document.querySelectorAll('a, button').forEach(btn => {
     btn.addEventListener('click', playBtnSound);
 });
 
 function toggleMenu() {
-  playBtnSound(); // Suara saat buka menu
+  playBtnSound();
   document.getElementById('sideMenu').classList.toggle('active');
 }
 
-// --- Server & Wallpaper System ---
 const SERVER_IP = "pvpsl.xyz";
 const SERVER_PORT = 19162;
 const QUERY_URL = `https://api.mcsrvstat.us/bedrock/2/${SERVER_IP}:${SERVER_PORT}`;
